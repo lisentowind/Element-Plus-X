@@ -56,8 +56,18 @@ setTimeout(() => {
 
 <template>
   <div class="component-container">
-    <ThoughtChain :thinking-items="thinkings" :line-gradient="true" /> <br>
-    <ThoughtChain :thinking-items="thinkingItems" :line-gradient="true" /> <br>
+    <ThoughtChain
+      :thinking-items="thinkings"
+
+      :line-gradient="true"
+    /> <br>
+    <ThoughtChain
+      :thinking-items="thinkingItems" :dot-background-color="{
+        loading: '#11663a',
+        success: '#325c6c',
+        error: '#e6a23c',
+      }" :line-gradient="true"
+    /> <br>
     <ThoughtChain :thinking-items="thinkingItems" @handle-expand="(id:string[]) => console.log(id)">
       <template #icon="{ item }">
         <span

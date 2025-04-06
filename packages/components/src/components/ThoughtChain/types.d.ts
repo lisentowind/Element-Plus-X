@@ -6,21 +6,15 @@ import type { TypingConfig } from '../Typewriter/types'
  */
 type ThoughtChainItemId = string | number
 
-export type ThoughtChainType = 'info' | 'success' | 'warning' | 'danger' | 'primary'
+type HexDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F'
 
-export interface ThinkStatusEnum {
-  loading: {
-    value: string | number
-    type: ThoughtChainType
-  }
-  error: {
-    value: string | number
-    type: ThoughtChainType
-  }
-  success: {
-    value: string | number
-    type: ThoughtChainType
-  }
+export type HexColor = `#${HexDigit}${HexDigit}${HexDigit}${HexDigit}${HexDigit}${HexDigit}`
+
+export interface DefaultColor {
+  loading: HexColor
+  success: HexColor
+  error: HexColor
+  [key: string]: HexColor
 }
 
 /**
@@ -107,9 +101,9 @@ export interface ThoughtChainProps<T = ThoughtChainItemBase> {
    */
   statusKey?: string
   /**
-   * 节点状态枚举
+   * 节点状态颜色设置
    */
-  statusEnum?: ThinkStatusEnum
+  dotBackgroundColor?: DefaultColor
   /**
    * 节点图标大小
    */
