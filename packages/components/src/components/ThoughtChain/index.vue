@@ -172,10 +172,11 @@ onMounted(() => {
           </el-collapse>
 
           <template #dot>
-            <div class="el-thought-chain-item-dot">
+            <div :class="{ 'el-thought-chain-item-dot': !$slots.icon }" style="position: relative;">
               <slot name="icon" :item="item">
                 <el-button
-                  circle :type="getType(item) !== 'error' ? getType(item) : 'danger'" :loading="isLoading(item)"
+                  circle
+                  :loading="isLoading(item)"
                   :style="
                     {
                       '--custom-background-color': getNodeBtnColor(item),
@@ -210,9 +211,6 @@ onMounted(() => {
 .el-thought-chain {
 
   &-item-dot {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: v-bind(dotMargin);
     :deep(.el-button){
       cursor:default !important;

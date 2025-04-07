@@ -56,11 +56,12 @@ setTimeout(() => {
 
 <template>
   <div class="component-container">
+    <!-- 单个 -->
     <ThoughtChain
       :thinking-items="thinkings"
-
       :line-gradient="true"
     /> <br>
+    <!-- 自定义状态的颜色 -->
     <ThoughtChain
       :thinking-items="thinkingItems" :dot-background-color="{
         loading: '#11663a',
@@ -68,23 +69,28 @@ setTimeout(() => {
         error: '#e6a23c',
       }" :line-gradient="true"
     /> <br>
+    <!-- 默认 -->
+    <ThoughtChain
+      :thinking-items="thinkingItems" :line-gradient="true"
+    /> <br>
+    <!-- 自定义节点的图标 -->
     <ThoughtChain :thinking-items="thinkingItems" @handle-expand="(id:string[]) => console.log(id)">
       <template #icon="{ item }">
         <span
           v-if="item.status === 'success'"
-          style="font-size: 18px; margin-left: 7px; color: var(--el-color-success);"
+          class="slot-success"
         >
           <el-icon><SuccessFilled /></el-icon>
         </span>
         <span
           v-if="item.status === 'error'"
-          style="font-size: 18px; margin-left: 7px; color: var(--el-color-danger);"
+          class="slot-error"
         >
           <el-icon><CircleCloseFilled /></el-icon>
         </span>
         <span
           v-if="item.status === 'loading'"
-          style="font-size: 18px; margin-left: 7px; "
+          class="slot-loading"
         >
           <el-icon class="is-loading"><Loading /></el-icon>
         </span>
@@ -100,5 +106,24 @@ setTimeout(() => {
   border-radius: 15px;
   height: calc(100vh - 230px);
   overflow-x: auto;
+}
+.slot-loading,
+.slot-success,
+.slot-error{
+  font-size:20px;
+  .el-icon{
+    position:absolute;
+    z-index:14;
+    top:-2px;
+    left:-5px;
+    border-radius:50%;
+  }
+}
+
+.slot-success{
+  color: var(--el-color-success);
+}
+.slot-error{
+  color: var(--el-color-danger);
 }
 </style>
