@@ -19,7 +19,7 @@ import {
   toggleExpand,
   toggleTheme
 } from './shiki-header';
-import '../../../../assets/style/shiki.scss';
+import './shiki.scss';
 
 export default defineComponent({
   props: {

@@ -63,7 +63,7 @@ export function languageEle(language: string) {
  * @export
  * @param codeText
  */
-export function controlEle(codeText: string[]) {
+export function controlEle(codeText: string[], otherVNode?: VNode | VNode[]) {
   return h(
     ElSpace,
     {
@@ -71,7 +71,7 @@ export function controlEle(codeText: string[]) {
       direction: 'horizontal'
     },
     {
-      default: () => [toggleThemeEle(), copyBtnEle(codeText)]
+      default: () => [toggleThemeEle(), copyBtnEle(codeText), otherVNode]
     }
   );
 }

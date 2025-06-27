@@ -44,7 +44,9 @@
   "oxc.enable": true,
   "cSpell.words": [
     "aeac",
+    "autoresize",
     "borderless",
+    "echarts",
     "esno",
     "Groupable",
     "jsonlee",

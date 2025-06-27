@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import {
+  echartsMdContent,
   highlightMdContent,
   mathMdContent,
   mdContent,
   mermaidMdContent
 } from '@assets/mock';
+import EchartsCodeDemo from './echarts-code.vue';
 import HighlightCodeDemo from './highlight-code.vue';
 import Markdown from './index.vue';
 
@@ -65,6 +67,21 @@ export const highlightMdContentDemo: Story = {
   })
 };
 
+export const echartsMdContentDemo: Story = {
+  args: {
+    markdown: echartsMdContent
+  },
+  render: args => ({
+    components: {
+      EchartsCodeDemo
+    },
+    setup() {
+      return { attrs: args };
+    },
+    template: `<EchartsCodeDemo v-bind="attrs"  />`
+  })
+};
+
 export const PieRenderDemo: Story = {
   args: {
     markdown: mermaidMdContent
@@ -108,7 +125,7 @@ export const MermaidErrorDemo: Story = {
 graph TD
     A[开始] --> B[处理
     B --> C[结束]
-    D --> 
+    D -->
 \`\`\`
 `,
     mermaidConfig: {
