@@ -37,7 +37,7 @@ export default defineComponent({
     config: {
       type: Object as () => MarkdownEChartConfig,
       default: () => ({
-        renderEngine: 'svg',
+        renderEngine: 'canvas',
         width: '90%',
         height: '300px',
         margin: '0 auto'
@@ -142,7 +142,7 @@ export default defineComponent({
                   margin: props.config.margin,
                   backgroundColor: 'transparent'
                 },
-                group: `radiance${Nanoid}`,
+                group: `markdown-echarts-${Nanoid}`,
                 loading: props.loading
               })
             : // 加载中

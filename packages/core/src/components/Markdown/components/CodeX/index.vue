@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, h, toValue } from 'vue';
-import Echarts from '../Echarts/Echarts.vue';
+import MarkdownECharts from '../Echarts/Echarts.vue';
 import { CodeBlock, Mermaid } from '../index';
 import { useMarkdownContext } from '../MarkdownProvider';
 
@@ -33,7 +33,7 @@ export default defineComponent({
         return h(Mermaid, mermaidProps);
       }
       if (language === 'echarts') {
-        return h(Echarts, { ...props, options: props.raw.content });
+        return h(MarkdownECharts, { ...props, options: props.raw.content });
       }
       return h(CodeBlock, props);
     };

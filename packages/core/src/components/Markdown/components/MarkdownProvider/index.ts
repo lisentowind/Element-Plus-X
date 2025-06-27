@@ -48,6 +48,10 @@ const MarkdownProvider = defineComponent({
             themes: [...themeArr.value] as any[],
             langs: ['javascript']
           }).then(res => {
+            // 销毁旧实例
+            if (highlighter.value) {
+              highlighter.value.dispose();
+            }
             highlighter.value = res;
             shikiThemeColor.value = res.getTheme(
               isDark ? (themeArr.value[1] as any) : (themeArr.value[0] as any)
