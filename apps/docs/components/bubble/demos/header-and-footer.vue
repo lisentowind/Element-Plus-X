@@ -35,7 +35,7 @@ const avatarAI =
   </Bubble>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .footer-container {
   :deep(.el-button + .el-button) {
     margin-left: 8px;

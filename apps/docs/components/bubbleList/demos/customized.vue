@@ -134,7 +134,7 @@ function setLoading(loading: boolean) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .avatar-wrapper {
   width: 40px;
   height: 40px;

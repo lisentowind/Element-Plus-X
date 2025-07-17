@@ -149,7 +149,7 @@ function onDestroy() {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 // 避免 markdown-body 样式被覆盖
 :deep(.markdown-body) {
   background: transparent;

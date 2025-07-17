@@ -93,7 +93,7 @@ function handleItemClick(item: PromptsItemsProps) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 :deep(.el-prompts) {
   .el-prompts-title {
     color: #fff;

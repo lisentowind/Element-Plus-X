@@ -243,7 +243,7 @@ function handleMenuClick(menuKey: string, item: any) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .custom-group-title {
   display: flex;
   align-items: center;

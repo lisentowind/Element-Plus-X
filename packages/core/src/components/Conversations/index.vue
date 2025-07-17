@@ -1,13 +1,6 @@
 <!-- TODO: 修改数据计算, 添加数据计算缓存 -->
 
-<script
-  setup
-  lang="ts"
-  generic="
-    T extends AnyObject = AnyObject,
-    V extends string | number | boolean = string | number
-  "
->
+<script setup lang="ts" generic="T extends AnyObject = AnyObject">
 import type { ElScrollbar } from 'element-plus';
 import type { AnyObject } from 'typescript-api-pro';
 import type { ComponentPublicInstance } from 'vue';
@@ -25,6 +18,7 @@ import { get } from 'radash';
 import Item from './components/item.vue';
 
 const props = withDefaults(defineProps<Conversation<T>>(), {
+  active: undefined,
   items: () => [],
   itemsStyle: () => ({}),
   itemsHoverStyle: () => ({}),
@@ -71,7 +65,15 @@ const props = withDefaults(defineProps<Conversation<T>>(), {
 
 const emits = defineEmits<ConversationsEmits>();
 
-const activeKey = defineModel<V>('active', { required: false });
+// const activeKey = defineModel<V>('active', { required: false });
+const activeKey = computed({
+  get() {
+    return props.active; // 读取 props 中的值
+  },
+  set(value) {
+    emits('update:active', value); // 更新时触发 emit 通知父组件
+  }
+});
 
 // const getKey = (item: ConversationItem<T>, index: number) => {
 //   return props.rowKey ? get(item, props.rowKey as string) as string : index.toString()
@@ -133,7 +135,7 @@ function handleClick(item: ConversationItemUseOptions<T>) {
   // 如果是disabled状态，则不允许选中
   if (item.disabled) return;
   emits('change', item);
-  activeKey.value = item.uniqueKey as V;
+  activeKey.value = item.uniqueKey as string | number;
 }
 
 // 判断是否需要使用分组

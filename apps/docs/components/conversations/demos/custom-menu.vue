@@ -155,7 +155,7 @@ function handleMenuClick(menuKey: string, item: any) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .menu-buttons {
   display: flex;
   flex-direction: column;

@@ -60,4 +60,4 @@ const activeKey1 = ref('1');
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

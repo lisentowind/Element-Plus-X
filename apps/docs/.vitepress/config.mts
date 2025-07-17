@@ -72,7 +72,8 @@ export default defineConfig({
       { text: '🌱 生态', items: [
         { text: 'ruoyi-element-ai (模板项目)', link: 'https://chat-docs.element-plus-x.com/' },
         { text: 'element-ui-x (vue2版本)', link: 'https://element-ui-x.com/' },
-        { text: 'hook-fetch (请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' }
+        { text: 'hook-fetch (请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
+        { text: 'ChatAreaDoc (聊天框库)', link: 'https://www.jianfv.top/ChatAreaDoc' },
       ] },
       { text: '🧭 指南', link: '/guide/install/' },
       { text: '🎨 组件', link: '/components/xmarkdown/' },

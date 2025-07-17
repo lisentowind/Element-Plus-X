@@ -75,7 +75,7 @@ function handleExpand(value: string[]) {
   />
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .is-loading {
   animation: spin 1s infinite linear;
 }

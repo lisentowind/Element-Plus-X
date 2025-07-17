@@ -63,4 +63,4 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   <ThoughtChain :thinking-items="thinkingItems" dot-size="large" />
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

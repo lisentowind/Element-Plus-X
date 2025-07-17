@@ -158,4 +158,4 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

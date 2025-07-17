@@ -99,7 +99,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .custom-list {
   display: flex;
   gap: 12px;

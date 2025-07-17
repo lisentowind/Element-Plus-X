@@ -76,7 +76,7 @@ function closeHeader() {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .header-self-wrap {
   display: flex;
   flex-direction: column;

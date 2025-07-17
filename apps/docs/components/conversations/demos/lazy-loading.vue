@@ -104,4 +104,4 @@ const activeKey6 = ref('l1');
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

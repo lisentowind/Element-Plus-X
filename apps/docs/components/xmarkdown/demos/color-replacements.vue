@@ -54,4 +54,4 @@ console.log('hello world');
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

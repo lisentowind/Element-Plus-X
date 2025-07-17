@@ -64,4 +64,4 @@ function handleChange(item: ConversationItem<{ id: string; label: string }>) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

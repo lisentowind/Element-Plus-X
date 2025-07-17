@@ -40,7 +40,7 @@ const markdown = `
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .self-markdown-body {
   :deep(h1) {
     font-size: 24px;

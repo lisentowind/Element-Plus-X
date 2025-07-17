@@ -77,7 +77,7 @@ const content = computed(() => {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .container {
   display: flex;
   flex-direction: column;

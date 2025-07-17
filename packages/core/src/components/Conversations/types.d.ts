@@ -40,6 +40,7 @@ export interface GroupableOptions {
 }
 
 export interface Conversation<T extends AnyObject = AnyObject> {
+  active?: string | number; // 添加 active 的默认值
   items: ConversationItem<T>[];
   itemsStyle?: CSSProperties;
   itemsHoverStyle?: CSSProperties;
@@ -103,5 +104,5 @@ export interface ConversationsEmits {
     item: ConversationItem<T>
   ): void;
   (event: 'change', item: ConversationItem<T>): void;
-  // (e: 'update:active', v: V): void
+  (event: 'update:active', value?: string | number): void;
 }

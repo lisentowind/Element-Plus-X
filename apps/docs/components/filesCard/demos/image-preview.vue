@@ -126,7 +126,7 @@ title: 图片文件专区
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .files-card-container-wrapper {
   display: flex;
   gap: 12px;

@@ -56,7 +56,7 @@
 | `btnLoading`          | Boolean                                        | 否                                      | true                                           | 是否开启返回顶部按钮 loading 状态，默认为 `true`。                                                                                                                              |
 | `btnColor`            | String                                         | 否                                      | '#409EFF'                                      | 返回顶部按钮的颜色，默认为 `'#409EFF'`。                                                                                                                                        |
 | `btnIconSize`         | Number                                         | 否                                      | 24                                             | 返回顶部按钮的图标大小，默认为 24px。                                                                                                                                           |
-| `triggerIndices`      | 'only-last' \| 'all' \| number[]               | 否                                      | 'only-last'                                    | 触发滚动完成事件的气泡 `索引数组`，默认为 `'only-last'`。                                                                                                                       |
+| `triggerIndices`      | 'only-last' \| 'all' \| number[]               | 否                                      | 'only-last'                                    | 触发`complete`事件的气泡 `索引数组`，默认为 `'only-last'`。                                                                                                                       |
 
 ## 事件
 

@@ -58,7 +58,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .files-card-container {
   display: flex;
   flex-wrap: wrap;

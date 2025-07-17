@@ -36,7 +36,7 @@ function changeContent() {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 :deep(.markdown-body) {
   background-color: transparent;
 }

@@ -160,7 +160,7 @@ watch(
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 // 旋转
 .loading {
   animation: rotate 1s linear infinite;

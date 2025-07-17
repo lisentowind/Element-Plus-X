@@ -164,7 +164,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .component-container {
   padding: 12px;
 
