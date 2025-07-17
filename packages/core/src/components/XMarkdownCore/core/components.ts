@@ -39,6 +39,10 @@ const sharedProps = {
   sanitizeOptions: {
     type: Object as PropType<SanitizeOptions>,
     default: () => ({})
+  },
+  openFog: {
+    type: Boolean,
+    default: false
   }
 };
 const vueMarkdownImpl = defineComponent({
@@ -66,7 +70,7 @@ const vueMarkdownImpl = defineComponent({
     return () => {
       const mdast = processor.value.parse(markdown.value);
       const hast = processor.value.runSync(mdast) as Root;
-      return render(hast, attrs, slots, customAttrs.value);
+      return render(hast, attrs, slots, customAttrs.value, props.openFog);
     };
   }
 });
@@ -104,7 +108,7 @@ const vueMarkdownAsyncImpl = defineComponent({
 
     return () => {
       return hast.value
-        ? render(hast.value, attrs, slots, customAttrs.value)
+        ? render(hast.value, attrs, slots, customAttrs.value, props.openFog)
         : null;
     };
   }

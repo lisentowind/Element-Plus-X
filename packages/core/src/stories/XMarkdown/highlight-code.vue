@@ -195,6 +195,7 @@ onMounted(() => {
     <XMarkdown
       v-bind="$attrs"
       :markdown="content"
+      :open-fog="true"
       :color-replacements="{
         // 这里传一个默认值 使其不受到其他 colorReplacements 的影响
         'vitesse-light': {

@@ -49,4 +49,6 @@ export interface MarkdownContext {
   secureViewCode?: boolean;
   // 预览代码弹窗部分配置
   viewCodeModalOptions?: ElxRunCodeOptions;
+  // 是否需要雾化
+  openFog?: boolean;
 }

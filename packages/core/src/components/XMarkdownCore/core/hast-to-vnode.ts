@@ -8,24 +8,29 @@ import type {
   CustomAttrsObjectResult
 } from './types';
 import { find, html, svg } from 'property-information';
-import { h, toValue } from 'vue';
+import { h, toValue, withDirectives } from 'vue';
+import vFogFade from '../hooks/fogDirective';
 
 export function render(
   hast: Root,
   attrs: Record<string, unknown>,
   slots?: Slots,
-  customAttrs?: MaybeRefOrGetter<CustomAttrs>
+  customAttrs?: MaybeRefOrGetter<CustomAttrs>,
+  openFog?: boolean
 ): VNode {
-  return h(
-    'div',
-    attrs,
-    renderChildren(
-      hast.children,
-      { listDepth: -1, listOrdered: false, listItemIndex: -1, svg: false },
-      hast,
-      slots ?? {},
-      toValue(customAttrs) ?? {}
-    )
+  return withDirectives(
+    h(
+      'div',
+      attrs,
+      renderChildren(
+        hast.children,
+        { listDepth: -1, listOrdered: false, listItemIndex: -1, svg: false },
+        hast,
+        slots ?? {},
+        toValue(customAttrs) ?? {}
+      )
+    ),
+    openFog ? [[vFogFade, {}]] : []
   );
 }
 

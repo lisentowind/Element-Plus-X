@@ -15,6 +15,7 @@ export type MarkdownProps = {
   defaultThemeMode?: 'light' | 'dark';
   needViewCodeBtn?: boolean;
   secureViewCode?: boolean;
+  openFog?: boolean;
   viewCodeModalOptions?: ElxRunCodeOptions;
   mermaidConfig?: Partial<MermaidToolbarConfig>;
 } & Partial<Pick<InitShikiOptions, 'langs' | 'themes' | 'colorReplacements'>> &

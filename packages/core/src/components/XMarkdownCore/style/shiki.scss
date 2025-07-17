@@ -138,6 +138,7 @@ body.dark .shiki span {
       backdrop-filter: blur(var(--shiki-custom-blur));
       margin: 0;
       background-color: var(--shiki-code-header-bg);
+      z-index: 1;
       span {
         box-shadow: none !important;
         background-color: transparent !important;
@@ -285,4 +286,21 @@ body.dark .shiki span {
       transform: rotate(0deg) !important;
     }
   }
+}
+
+.fog-fade {
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateX(12px); /* 从左边偏移一点点 */
+  transition:
+    opacity 0.3s ease-out,
+    filter 0.3s ease-out,
+    transform 0.3s ease-out;
+  will-change: opacity, filter, transform;
+}
+
+.fog-fade.in-view {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0); /* 回归原位 */
 }

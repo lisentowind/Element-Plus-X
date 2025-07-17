@@ -33,7 +33,8 @@ export const DEFAULT_PROPS = {
   colorReplacements: () => ({}),
   needViewCodeBtn: true,
   secureViewCode: false,
-  viewCodeModalOptions: () => ({})
+  viewCodeModalOptions: () => ({}),
+  openFog: false
 };
 
 export const MARKDOWN_CORE_PROPS = {
@@ -131,5 +132,9 @@ export const MARKDOWN_CORE_PROPS = {
   viewCodeModalOptions: {
     type: Object as PropType<ElxRunCodeOptions>,
     default: () => ({})
+  },
+  openFog: {
+    type: Boolean,
+    default: false
   }
 };

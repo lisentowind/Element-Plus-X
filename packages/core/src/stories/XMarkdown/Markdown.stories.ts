@@ -24,6 +24,7 @@ const meta = {
         ...shikiThemeDefault
       }
     },
+    openFog: { control: 'boolean', defaultValue: false },
     needViewCodeBtn: { control: 'boolean', defaultValue: true },
     secureViewCode: { control: 'boolean', defaultValue: false },
     defaultThemeMode: { control: 'select', options: ['light', 'dark'] },
@@ -36,6 +37,7 @@ const meta = {
     themes: {
       ...shikiThemeDefault
     },
+    openFog: false,
     needViewCodeBtn: true,
     secureViewCode: false,
     viewCodeModalOptions: {
