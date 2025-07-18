@@ -10,7 +10,7 @@ export interface SenderProps {
   loading?: boolean;
   clearable?: boolean;
   allowSpeech?: boolean;
-  submitType?: 'enter' | 'shiftEnter';
+  submitType?: 'enter' | 'shiftEnter' | 'cmdOrCtrlEnter' | 'altEnter';
   headerAnimationTimer?: number;
   inputWidth?: string;
 

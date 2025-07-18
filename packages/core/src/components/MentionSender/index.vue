@@ -51,7 +51,8 @@ const internalValue = computed({
     return props.modelValue;
   },
   set(val) {
-    if (props.readOnly || props.disabled) return;
+    if (props.readOnly || props.disabled)
+      return;
     emits('update:modelValue', val);
   }
 });
@@ -88,15 +89,19 @@ function onContentMouseDown(e: MouseEvent) {
 /* 头部显示隐藏 开始 */
 const visiableHeader = ref(false);
 function openHeader() {
-  if (!slots.header) return false;
+  if (!slots.header)
+    return false;
 
-  if (props.readOnly) return false;
+  if (props.readOnly)
+    return false;
 
   visiableHeader.value = true;
 }
 function closeHeader() {
-  if (!slots.header) return;
-  if (props.readOnly) return;
+  if (!slots.header)
+    return;
+  if (props.readOnly)
+    return;
   visiableHeader.value = false;
 }
 /* 头部显示隐藏 结束 */
@@ -106,7 +111,8 @@ const recognition = ref<SpeechRecognition | null>(null);
 const speechLoading = ref<boolean>(false);
 
 function startRecognition() {
-  if (props.readOnly) return; // 直接返回，不执行后续逻辑
+  if (props.readOnly)
+    return; // 直接返回，不执行后续逻辑
   if (hasOnRecordingChangeListener.value) {
     speechLoading.value = true;
     emits('recordingChange', true);
@@ -170,48 +176,54 @@ function submit() {
 }
 // 取消按钮
 function cancel() {
-  if (props.readOnly) return;
+  if (props.readOnly)
+    return;
   emits('cancel', internalValue.value);
 }
 
 function clear() {
-  if (props.readOnly) return; // 直接返回，不执行后续逻辑
+  if (props.readOnly)
+    return; // 直接返回，不执行后续逻辑
   inputRef.value.input.clear();
   internalValue.value = '';
 }
 
-// 在这判断组合键的回车键 (目前支持两种模式)
+// 在这判断组合键的回车键 (目前支持四种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (props.readOnly) return; // 直接返回，不执行后续逻辑
-  if (props.submitType === 'enter') {
-    // 判断是否按下了 Shift + 回车键
-    if (e.shiftKey && e.keyCode === 13) {
-      e.preventDefault();
-      const cursorPosition = e.target.selectionStart; // 获取光标位置
-      const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
-      const textAfterCursor = internalValue.value.slice(cursorPosition); // 光标后的文本
-      internalValue.value = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
-      e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
-    } else if (e.keyCode === 13 && !e.shiftKey) {
-      // 阻止掉 Enter 的默认换行行为
-      e.preventDefault();
-      // 触发提交功能
-      submit();
-    }
-  } else if (props.submitType === 'shiftEnter') {
-    // 判断是否按下了 Shift + 回车键
-    if (e.shiftKey && e.keyCode === 13) {
-      // 阻止掉 Enter 的默认换行行为
-      e.preventDefault();
-      // 触发提交功能
-      submit();
-    } else if (e.keyCode === 13 && !e.shiftKey) {
-      e.preventDefault();
-      const cursorPosition = e.target.selectionStart; // 获取光标位置
-      const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
-      const textAfterCursor = internalValue.value.slice(cursorPosition); // 光标后的文本
-      internalValue.value = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
-      e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
+  if (props.readOnly)
+    return; // 直接返回，不执行后续逻辑
+  const _resetSelectionRange = () => {
+    const cursorPosition = e.target.selectionStart; // 获取光标位置
+    const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
+    const textAfterCursor = internalValue.value.slice(cursorPosition); // 光标后的文本
+    internalValue.value = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
+    e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
+  };
+  // 是否按下组合键
+  let _isComKeyDown = false;
+  switch (props.submitType) {
+    case 'cmdOrCtrlEnter':
+      _isComKeyDown = e.metaKey || e.ctrlKey; // Mac 下使用 Command 键，Windows 下使用 Ctrl 键
+      break;
+    case 'shiftEnter':
+      _isComKeyDown = e.shiftKey; // Shift + Enter
+      break;
+    case 'altEnter':
+      _isComKeyDown = e.altKey; // Alt + Enter
+      break;
+    case 'enter':
+      _isComKeyDown = e.shiftKey || e.metaKey || e.ctrlKey || e.altKey; // 只处理 Enter 键
+      break;
+    default:
+      _isComKeyDown = false; // 默认不处理组合键
+      break;
+  }
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    if (props.submitType === 'enter') {
+      _isComKeyDown ? _resetSelectionRange() : submit();
+    } else {
+      _isComKeyDown ? submit() : _resetSelectionRange();
     }
   }
 }

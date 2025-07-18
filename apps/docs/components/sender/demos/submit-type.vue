@@ -8,6 +8,8 @@ title: 提交模式
 ::: info
 - `submitType='enter'` 设置 回车提交，`'shift + Enter'` 换行。
 - `submitType='shiftEnter'` 设置 `'shift + Enter'` 提交，回车换行。
+- `submitType='cmdOrCtrlEnter'` 设置 `'cmd + Enter'` 或 `'ctrl + Enter'` 提交，回车换行。
+- `submitType='altEnter'` 设置 `'alt + Enter'` 提交，回车换行。
 :::
 </docs>
 
@@ -37,6 +39,12 @@ function handleSubmit(value: string) {
         enter
       </el-radio-button>
       <el-radio-button value="shiftEnter">
+        shiftEnter
+      </el-radio-button>
+      <el-radio-button value="cmdOrCtrlEnter">
+        shiftEnter
+      </el-radio-button>
+      <el-radio-button value="altEnter">
         shiftEnter
       </el-radio-button>
     </el-radio-group>

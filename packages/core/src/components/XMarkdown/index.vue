@@ -3,7 +3,6 @@ import type { MarkdownProps } from '../XMarkdownCore/shared/types';
 import { MarkdownRenderer } from '../XMarkdownCore';
 import { useMarkdownContext } from '../XMarkdownCore/components/MarkdownProvider';
 import { DEFAULT_PROPS } from '../XMarkdownCore/shared/constants';
-import '../XMarkdownCore/style/katex.min.css';
 
 const props = withDefaults(defineProps<MarkdownProps>(), DEFAULT_PROPS);
 

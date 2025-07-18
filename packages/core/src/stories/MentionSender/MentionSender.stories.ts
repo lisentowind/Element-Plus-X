@@ -58,7 +58,7 @@ const meta: Meta<typeof MentionSenderSource> = {
     submitType: {
       defaultValue: 'enter',
       control: { type: 'select' },
-      options: ['enter', 'shiftEnter'],
+      options: ['enter', 'shiftEnter', 'cmdOrCtrlEnter', 'altEnter'],
       description: '提交方式，支持 "shiftEnter"（按 Shift + Enter 提交）。'
     },
     headerAnimationTimer: {
