@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ConfigProvider } from '../../components';
+
 const props = defineProps<{
   markdown: string;
 }>();
@@ -43,7 +45,9 @@ onMounted(() => {
   <el-button @click="redo"> 重新开始 </el-button>
   <div class="component-container">
     <!-- <MarkdownRenderer v-bind="$attrs" :markdown="content" /> -->
-    <XMarkdown v-bind="$attrs" :markdown="content" />
+    <ConfigProvider>
+      <XMarkdown v-bind="$attrs" :markdown="content" />
+    </ConfigProvider>
   </div>
 </template>
 

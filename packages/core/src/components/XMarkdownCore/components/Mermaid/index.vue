@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { MdComponent } from '../types';
 import type { MermaidToolbarConfig } from './types';
+import { MERMAID_CACHE_KEY_LENGTH } from '@components/XMarkdownCore/shared';
 import mermaid from 'mermaid';
 import { debounce } from 'radash';
 import useSWRV from 'swrv';
+import { Md5 } from 'ts-md5';
 import { computed, nextTick, ref, toValue, watch } from 'vue';
 import { useMermaidZoom } from '../../hooks';
 import { useMarkdownContext } from '../MarkdownProvider';
@@ -61,7 +63,10 @@ const zoomControls = useMermaidZoom({
   maxScale: 5
 });
 const cacheKey = computed(() => {
-  return `mermaid-${props.raw.content}`;
+  const content = props.raw?.content ?? '';
+  return content.length > MERMAID_CACHE_KEY_LENGTH
+    ? `mermaid-${Md5.hashStr(content)}`
+    : `mermaid-${content}`;
 });
 const { data: cachedSvg } = useSWRV<string>(
   cacheKey,

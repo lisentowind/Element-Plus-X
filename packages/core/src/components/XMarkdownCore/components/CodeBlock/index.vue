@@ -11,8 +11,14 @@ import {
   transformerNotationWordHighlight
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
+import useSWRV from 'swrv';
+import { Md5 } from 'ts-md5';
 import { computed, h, ref, toValue, watch } from 'vue';
-import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
+import {
+  SHIKI_CACHE_KEY_LENGTH,
+  SHIKI_SUPPORT_LANGS,
+  shikiThemeDefault
+} from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import RunCode from '../RunCode/index.vue';
 import {
@@ -37,7 +43,6 @@ const props = withDefaults(
 
 const context = useMarkdownContext();
 const { codeXSlot, customAttrs } = toValue(context) || {};
-const renderLines = ref<string[]>([]);
 const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
 const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
@@ -60,42 +65,59 @@ const shikiTransformers = [
   transformerNotationWordHighlight()
 ];
 
-// 生成高亮HTML
-async function generateHtml() {
-  let { language = 'text', content = '' } = props.raw || {};
-  if (!(SHIKI_SUPPORT_LANGS as readonly string[]).includes(language)) {
-    language = 'text';
-  }
-  nowCodeLanguage.value = language as BundledLanguage;
-  const html = await codeToHtml(content, {
-    colorReplacements: colorReplacements.value,
-    lang: language as BundledLanguage,
-    themes: themes.value,
-    transformers: shikiTransformers
-  });
-  const parse = new DOMParser();
-  const doc = parse.parseFromString(html, 'text/html');
-  const preElement = doc.querySelector('pre');
-  preStyle.value = preElement?.getAttribute('style');
-  const preClassNames = preElement?.className;
-  preClass.value = preClassNames ?? '';
-  const codeElement = doc.querySelector('pre code');
-  if (codeElement) {
-    const lines = codeElement.querySelectorAll('.line'); // 获取所有代码行
-    renderLines.value = Array.from(lines).map(line => line.outerHTML); // 存储每行HTML
-  }
-}
-
-watch(
-  () => props.raw?.content,
-  async content => {
-    if (content) {
-      await generateHtml();
+const cacheKey = computed(() => {
+  const content = props.raw?.content ?? '';
+  return content.length > SHIKI_CACHE_KEY_LENGTH
+    ? Md5.hashStr(content)
+    : content;
+});
+// 使用 useSWRV 获取高亮后的代码行，并设置默认值为空数组，保证类型安全
+const { data: renderLinesRaw } = useSWRV<string[]>(
+  cacheKey,
+  async () => {
+    try {
+      let lines: string[] = [];
+      let { language = 'text', content = '' } = props.raw || {};
+      // 检查语言是否支持，不支持则使用 text
+      if (!(SHIKI_SUPPORT_LANGS as readonly string[]).includes(language)) {
+        language = 'text';
+      }
+      nowCodeLanguage.value = language as BundledLanguage;
+      // 调用 shiki 生成高亮 HTML
+      const html = await codeToHtml(content.trim(), {
+        colorReplacements: colorReplacements.value,
+        lang: language as BundledLanguage,
+        themes: themes.value,
+        transformers: shikiTransformers
+      });
+      // 解析 HTML，获取 pre 元素和 code 元素
+      const parse = new DOMParser();
+      const doc = parse.parseFromString(html, 'text/html');
+      const preElement = doc.querySelector('pre');
+      preStyle.value = preElement?.getAttribute('style');
+      const preClassNames = preElement?.className;
+      preClass.value = preClassNames ?? '';
+      const codeElement = doc.querySelector('pre code');
+      if (codeElement) {
+        const lineNodes = codeElement.querySelectorAll('.line');
+        lines = Array.from(lineNodes).map(line => line.outerHTML);
+      }
+      return lines;
+    } catch (error) {
+      // 捕获异常，返回空数组，保证类型安全
+      console.error('Error generating HTML:', error);
+      return [];
     }
   },
-  { immediate: true }
+  {
+    dedupingInterval: 3000,
+    errorRetryCount: 2,
+    revalidateOnFocus: false,
+    revalidateDebounce: 300
+  }
 );
-
+// 通过 computed 包装，始终返回 string[]，不会为 undefined
+const renderLines = computed(() => renderLinesRaw.value ?? []);
 const runCodeOptions = reactive<ElxRunCodeProps>({
   code: [],
   content: '',
@@ -234,7 +256,6 @@ watch(
     >
       <span v-for="(line, index) in renderLines" :key="index" v-html="line" />
     </code>
-    <!-- run-code -->
     <component
       :is="RunCodeComputed"
       v-bind="{ ...viewCodeModalOptions, ...runCodeOptions }"
