@@ -8,7 +8,8 @@ import type {
 import type { RawProps } from './types';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
-import { h, ref } from 'vue';
+import { h } from 'vue';
+import { useGlobalThemeManager } from '../../hooks/useGlobalThemeManager';
 import CopyCodeButton from './copy-code-button.vue';
 import RunCodeButton from './run-code-button.vue';
 
@@ -159,8 +160,11 @@ export interface CodeBlockHeaderFunctionExpose {
 
 let copyCodeTimer: ReturnType<typeof setTimeout> | null = null;
 
-// 记录当前是否暗色模式
-export const isDark = ref(document.body.classList.contains('dark'));
+// 使用全局主题管理器
+const globalThemeManager = useGlobalThemeManager();
+
+// 记录当前是否暗色模式 - 现在从全局管理器获取
+export const isDark = globalThemeManager.isDark;
 
 /* ----------------------------------- 按钮组 ---------------------------------- */
 
@@ -426,14 +430,7 @@ export function toggleExpand(ev: MouseEvent): { isExpand: boolean } {
  * @export
  */
 export function toggleTheme() {
-  const theme = document.body.classList.contains('dark') ? 'light' : 'dark';
-  isDark.value = theme === 'dark';
-  if (isDark.value) {
-    document.body.classList.add('dark');
-  } else {
-    document.body.classList.remove('dark');
-  }
-  return isDark.value;
+  return globalThemeManager.toggleTheme();
 }
 
 /**
@@ -445,15 +442,7 @@ export function toggleTheme() {
  * @param defaultThemeMode
  */
 export function initThemeMode(defaultThemeMode: 'light' | 'dark') {
-  const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
-  if (theme !== defaultThemeMode) {
-    isDark.value = defaultThemeMode === 'dark';
-    if (defaultThemeMode === 'dark') {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-  }
+  globalThemeManager.initTheme(defaultThemeMode);
 }
 
 /**

@@ -31,7 +31,7 @@ export const DEFAULT_PROPS = {
   sanitizeOptions: () => ({}),
   mermaidConfig: () => ({}),
   langs: () => [],
-  defaultThemeMode: '' as 'light' | 'dark',
+  defaultThemeMode: 'light' as 'light' | 'dark',
   themes: () => ({ ...shikiThemeDefault }),
   colorReplacements: () => ({}),
   needViewCodeBtn: true,

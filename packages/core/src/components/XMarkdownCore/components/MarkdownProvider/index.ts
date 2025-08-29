@@ -4,7 +4,15 @@ import type { Ref } from 'vue';
 import type { MarkdownContext } from './types';
 import deepmerge from 'deepmerge';
 
-import { computed, defineComponent, h, inject, provide } from 'vue';
+import {
+  computed,
+  defineComponent,
+  h,
+  inject,
+  provide,
+  toValue,
+  watch
+} from 'vue';
 import { useDarkModeWatcher, usePlugins } from '../../hooks';
 import { GLOBAL_SHIKI_KEY, MARKDOWN_PROVIDER_KEY } from '../../shared';
 import { MARKDOWN_CORE_PROPS } from '../../shared/constants';
