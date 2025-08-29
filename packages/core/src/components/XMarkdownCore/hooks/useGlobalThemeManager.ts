@@ -161,7 +161,9 @@ class GlobalThemeManager {
       // localStorage 可能不可用，忽略错误
       console.warn('Failed to load theme preference from localStorage:', error);
     }
-  } /**
+  }
+
+  /**
    * 保存用户偏好到 localStorage
    */
 
